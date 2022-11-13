@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Hello OpenCV.js</h2>
+    <div>
+        <div class="inputoutput">
+            <input type="file" id="imgIn">
+            <img id="imageSrc" alt="No Image" />
+            <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
+        </div>
+        <div class="inputoutput">
+            <canvas id="canvasOutput1" ></canvas>
+            <div class="caption">canvasOutput</div>
+        </div>
+        <div class="inputoutput">
+            <canvas id="canvasOutput2" ></canvas>
+            <div class="caption">canvasOutput</div>
+        </div>
+        <div class="inputoutput">
+            <canvas id="canvasOutput3" ></canvas>
+            <div class="caption">canvasOutput</div>
+        </div>
+    </div>
+    <script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+    <script src="index.js"></script>
+</body>
+</html>
