@@ -5,26 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <h2>Hello OpenCV.js</h2>
     <div>
         <div class="inputoutput">
-            <input type="file" id="imgIn">
-            <img id="imageSrc" alt="No Image" />
-            <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
+            <img id="imageSrc" alt="No Image"/>
+            <div class="caption">
+                imageSrc
+                <input type="file" id="fileInput" name="file"/>
+            </div>
         </div>
         <div class="inputoutput">
-            <canvas id="canvasOutput1" ></canvas>
-            <div class="caption">canvasOutput</div>
+            <canvas id="canvasOutput1" class="imgDisp"></canvas>
+            <div class="caption">step 1</div>
         </div>
         <div class="inputoutput">
-            <canvas id="canvasOutput2" ></canvas>
-            <div class="caption">canvasOutput</div>
+            <canvas id="canvasOutput2" class="imgDisp"></canvas>
+            <div class="caption">step 2</div>
         </div>
         <div class="inputoutput">
-            <canvas id="canvasOutput3" ></canvas>
-            <div class="caption">canvasOutput</div>
+            <canvas id="canvasOutput3" class="imgDisp"></canvas>
+            <div class="caption">step 3</div>
+        </div>
+        <div class="inputoutput">
+            <canvas id="canvasOutput4" class="imgDisp"></canvas>
+            <div class="caption">step 4</div>
+        </div>
+        <div class="inputoutput">
+            <canvas id="canvasOutput5" class="imgDisp"></canvas>
+            <div class="caption">step 5</div>
+        </div>
+        <div class="inputoutput">
+            <canvas id="canvasOutput6" class="imgDisp"></canvas>
+            <div class="caption">step 6</div>
+        </div>
+        <div class="inputoutput">
+            <canvas id="canvasOutput7" class="imgDisp"></canvas>
+            <div class="caption">step 7</div>
+        </div>
+        <div class="inputoutput">
+            <canvas id="canvasOutput8" class="imgDisp"></canvas>
+            <div class="caption">step 8</div>
         </div>
     </div>
     <script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
