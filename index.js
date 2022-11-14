@@ -33,7 +33,7 @@ imgElement.onload = function() {
     // let channels = [new cv.Mat(), new cv.Mat(), new cv.Mat()];
     cv.split(labImg, channels);
     cv.imshow("canvasOutput2", labImg);
-    let tileGridSize = new cv.Size(16, 16);
+    // let tileGridSize = new cv.Size(16, 16);
     // let clahe = new cv.CLAHE(4, tileGridSize);
     let clahe = new cv.CLAHE(4);
     let claheDst = new cv.Mat();
@@ -59,7 +59,7 @@ imgElement.onload = function() {
     cv.imshow("canvasOutput5", threshDst);
 
     //contour finding
-    let contourDst = cv.Mat.zeros(threshDst.rows, threshDst.cols, cv.CV_8UC3);
+    let contourDst = cv.Mat.zeros(threshDst.rows, threshDst.cols, cv.CV_8UC1);
     // let srcCont = cv.imread(imgElement);
     let contours = new cv.MatVector();
     let hierarchy = new cv.Mat();
@@ -190,11 +190,12 @@ imgElement.onload = function() {
 
     let M = cv.getPerspectiveTransform(closestPointsMat, verticesMat);
     console.log(M);
-    let dsize = new cv.Size(1000, 1000);
+    let dsize = new cv.Size(630, 880);
     let warpDst = new cv.Mat();
     cv.warpPerspective(src, warpDst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
     cv.imshow("canvasOutput9", warpDst);
 
+    //unnecesary because dsize is set to the cropped dimension
     let cropped = new cv.Mat();
     let rect = new cv.Rect(0, 0, 630, 880);
     cropped = warpDst.roi(rect);
