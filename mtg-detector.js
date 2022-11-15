@@ -1,7 +1,7 @@
 /**
  * Processes an image containing a trading card then returns a cropped version sized as 630 by 880 by default
  * if outX and outY are provided then a smaller resized version will be returned
- * @param {*} imgElement 
+ * @param {*} imgElement - image or canvas element id
  * @param {number} [outX] - Optional output width
  * @param {number} [outY] - Optional output height
  * @returns Array of uint8s containing grayscale image
@@ -67,7 +67,7 @@ export function processImage(imgElement, outX = 630, outY = 880) {
         pointCoords.push([x, y]);
     }
 
-    closestPoints = []; //array to store the points closest to the corners of the bounding rectangle
+    let closestPoints = []; //array to store the points closest to the corners of the bounding rectangle
     //iterate over the four corners of the bounding rectangle
     for(let i = 0; i < 4; i++) {
         const vertex = vertices[i]; //vertex we are working on
@@ -100,7 +100,7 @@ export function processImage(imgElement, outX = 630, outY = 880) {
     let M = cv.getPerspectiveTransform(closestPointsMat, verticesMat);  //get the transform from warped to unwarped image
     let dsize = new cv.Size(630, 880);  //size for transformed image, this size will also crop the image
     let warpDst = new cv.Mat(); //matrix to store transformed image
-    cv.warpPerspective(src, warpDst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());   //actually to the warping (deskewing and rotation)
+    cv.warpPerspective(srcGray, warpDst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());   //actually to the warping (deskewing and rotation)
 
     //the user wants a resize
     if (outX != 630 || outY != 880) {
@@ -109,7 +109,7 @@ export function processImage(imgElement, outX = 630, outY = 880) {
     }
 
     //cleanup matrices
-    warpDst.delete();
+    // warpDst.delete();
     M.delete();
     closestPointsMat.delete();
     verticesMat.delete();
@@ -170,16 +170,16 @@ export function averageHash(imgData) {
 export function differenceHash(imgData, width, height) {
     //ensure imgData is an array
     if (!Array.isArray(imgData)) {
-        return false;
+        // return -1;   //doesn't seem to work
     }
     //ensure width and height actually make sense
     if (width * height != imgData.length) {
-        return false;
+        return -2;
     }
     let hashedStr = "";
     for (let i = 0; i < height; i++) {
         let rowOffset = i * width;  //offset due to the current row (i)
-        for (j = 0; j < width-1; j++) {
+        for (let j = 0; j < width - 1; j++) {
             if (imgData[rowOffset + j] < imgData[rowOffset + j + 1]) {
                 hashedStr += '1';
             } else {
@@ -187,5 +187,5 @@ export function differenceHash(imgData, width, height) {
             }
         }
     }
-
+    return hashedStr;
 }
