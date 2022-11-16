@@ -4,9 +4,10 @@
  * @param {*} imgElement - image or canvas element id
  * @param {number} [outX] - Optional output width
  * @param {number} [outY] - Optional output height
+ * @param {String} [outDisplay] - Optional id of div or canvas that will show the found card
  * @returns Array of uint8s containing grayscale image
  */
-export function processImage(imgElement, outX = 630, outY = 880) {
+export function processImage(imgElement, outX = 630, outY = 880, outDisplay = "") {
     let src = cv.imread(imgElement);    //convert image to matrix for manipulation
     let scalef = 1000 / Math.max(src.size().width, src.size().height);  //determine the scale factor to keep the largest dimesnion under 1000px
     if (scalef < 1) {   //if scaling is needed do the scaling, only scales down not up because this is purely to maintain performance
@@ -101,6 +102,10 @@ export function processImage(imgElement, outX = 630, outY = 880) {
     let dsize = new cv.Size(630, 880);  //size for transformed image, this size will also crop the image
     let warpDst = new cv.Mat(); //matrix to store transformed image
     cv.warpPerspective(srcGray, warpDst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());   //actually to the warping (deskewing and rotation)
+
+    if (outDisplay.length > 0) {
+        cv.imshow(outDisplay, warpDst)
+    }
 
     //the user wants a resize
     if (outX != 630 || outY != 880) {
