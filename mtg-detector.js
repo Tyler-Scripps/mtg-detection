@@ -4,7 +4,7 @@
  * @param {*} imgElement - image or canvas element id
  * @param {number} [outX] - Optional output width
  * @param {number} [outY] - Optional output height
- * @param {String} [outDisplay] - Optional id of div or canvas that will show the found card
+ * @param {object} [stepElements] - Optional object containing html elements or id for steps to be output to. Steps are: gray, threshold, contours, cardContour, boundingRect, warp, and resize
  * @returns Array of uint8s containing grayscale image
  */
 export function processImage(imgElement, outX = 630, outY = 880, stepElements = {}) {
@@ -64,13 +64,17 @@ export function processImage(imgElement, outX = 630, outY = 880, stepElements = 
         }
     }
     let cardContourInd; //card contour index
+    let largestArea = 0;
     //look for card contour
     for (let i = 0; i < contours.size(); ++i) {
         //if if the parent of the card is a top level contour and this contour has children it is probably the card
         //this should be improved to find the largest contour fitting the criteria
         if (topLevel.includes(hierarchy.col(i).data32S[3]) && hierarchy.col(i).data32S[2] != -1) {   //top level parent
-            cardContourInd = i;
-            break;
+            let tempArea = cv.contourArea(contours.get(i));
+            if (tempArea > largestArea) {
+                cardContourInd = i;
+                largestArea = tempArea;
+            }
         }
     }
 
@@ -232,7 +236,7 @@ export function differenceHash(imgData, width, height) {
             if (imgData[rowOffset + j] < imgData[rowOffset + j + 1]) {
                 hashedStr += '1';
             } else {
-                hashedStr += '0'
+                hashedStr += '0';
             }
         }
     }
