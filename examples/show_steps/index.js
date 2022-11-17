@@ -1,4 +1,4 @@
-import { differenceHash, processImage } from "../../mtg-detector.js";
+import { averageHash, differenceHash, processImage } from "../../mtg-detector.js";
 
 let imgElement = document.createElement("img");
 let imgDisp = document.getElementById("imageSrcDisp");
@@ -19,5 +19,12 @@ imgElement.onload = function() {
         warp: "canvasOutput6",
         resize: "canvasOutput7"
     }
-    processImage(imgElement, 9, 8, outputs);
+    let imgData9x8 = processImage(imgElement, 9, 8, outputs);
+    let diffHash = differenceHash(imgData9x8, 9, 8);
+
+    let imgdata8x8 = processImage(imgElement, 8, 8);
+    let aveHash = averageHash(imgdata8x8);
+
+    console.log("average hash: " + aveHash);
+    console.log("difference hash: " + diffHash);
 }
