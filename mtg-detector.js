@@ -158,6 +158,8 @@ export function processImage(imgElement, outX = 630, outY = 880, stepElements = 
         cv.resize(warpDst, warpDst, finalSize, 0, 0, cv.INTER_AREA);    //run the resize for the final desired dimension
         if (stepElements.resize) {  //output resized image to element
             cv.imshow(stepElements.resize, warpDst);
+            // console.log("resized image:")
+            // console.log(warpDst.data)
         }
     }
 
@@ -188,7 +190,7 @@ export function processImage(imgElement, outX = 630, outY = 880, stepElements = 
 export function averageHash(imgData) {
     //ensure that imgData is actually an array
     if (!Array.isArray(imgData)) {
-        return false;
+        // return false;
     }
     //Average
     let average = 0;    //will contain average of data
